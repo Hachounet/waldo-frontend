@@ -5,18 +5,13 @@ const GameContext = createContext();
 
 export const GameProvider = ({ children }) => {
   const [blurry, setBlurry] = useState(true); // Say if Blurry must activate blurry effect
-  const [startModal, setStartModal] = useState(true); // If true, display Start game Modal
-  const [endModal, setEndModal] = useState(false);
+  const [startModal, setStartModal] = useState(false); // If true, display Start game Modal
+  const [endModal, setEndModal] = useState(false); // If true, display End game Modal
+  const [choiceModal, setChoiceModal] = useState(true); // Sign up/Log in Modal
+  const [loginModal, setLoginModal] = useState(false); // If true, display Login modal
+  const [signUpModal, setSignUpModal] = useState(false);
+  const [leaderboardModal, setLeaderboardModal] = useState(false);
   const [charactersFound, setCharactersFound] = useState([]); // Backend should respond to populate this array. Purpose is just for display. Backend handle real winning situation
-
-  useEffect(() => {
-    if (!startModal) {
-      console.log(
-        'I will wait here to have respond from backend that I have correctly created timer session'
-      );
-      //   setBlurry(false);
-    }
-  }, [startModal]);
 
   return (
     <GameContext.Provider
@@ -29,6 +24,14 @@ export const GameProvider = ({ children }) => {
         setStartModal,
         endModal,
         setEndModal,
+        loginModal,
+        setLoginModal,
+        choiceModal,
+        setChoiceModal,
+        signUpModal,
+        setSignUpModal,
+        leaderboardModal,
+        setLeaderboardModal,
       }}
     >
       {' '}
