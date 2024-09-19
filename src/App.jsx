@@ -36,7 +36,7 @@ function App() {
             clickPosition={clickPosition}
           >
             <Image
-              src={'src/assets/waldopic.webp'}
+              src={'/waldopic.webp'} // switch by "/src/assets/waldopic.webp" if needed
               onClick={handleImageClick}
             />
           </Popover>
