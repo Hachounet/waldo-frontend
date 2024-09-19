@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { useGameContext } from '../GameContext';
 
-export default function Ring({ children, characterID }) {
+export default function Ring({ children, characterName }) {
   const { charactersFound } = useGameContext();
 
   return (
     <>
-      {charactersFound.includes(characterID) ? (
+      {charactersFound.includes(characterName) ? (
         <div className="flex items-center justify-center w-[85px] h-[85px] rounded-full border-4 border-green-600 ring-neon-green">
           {children}
         </div>
@@ -21,5 +21,5 @@ export default function Ring({ children, characterID }) {
 
 Ring.propTypes = {
   children: PropTypes.node.isRequired,
-  characterID: PropTypes.string.isRequired,
+  characterName: PropTypes.string.isRequired,
 };

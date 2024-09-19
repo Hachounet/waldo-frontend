@@ -1,11 +1,15 @@
 import { useState, useRef, useEffect } from 'react';
 import Avatar from './Avatar';
+import { useGameContext } from '../GameContext';
+import PropTypes from 'prop-types';
+import { postRequest } from '../hooks/fetchHelper';
+import { playURL, startURL } from '../DevHub';
 
-const Popover = ({ children, position }) => {
+const Popover = ({ children, position, clickPosition }) => {
   const [isVisible, setIsVisible] = useState(false); // Manages the visibility state of the popover
   const popoverRef = useRef(null); // Reference to the popover element
   const triggerRef = useRef(null); // Reference to the button element that triggers the popover
-
+  const { setCharactersFound, setEndModal } = useGameContext();
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
   };
@@ -26,6 +30,36 @@ const Popover = ({ children, position }) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  const handleAvatarClick = async (characterName) => {
+    let sessionId =
+      localStorage.getItem('sessionId') ||
+      (await postRequest(startURL)).sessionId;
+    localStorage.setItem('sessionId', sessionId);
+    sendPlayRequest(characterName, sessionId);
+  };
+
+  const sendPlayRequest = (characterName, sessionId) => {
+    const formValues = {
+      characterName: characterName,
+      posX: clickPosition.x,
+      posY: clickPosition.y,
+      sessionId: sessionId,
+    };
+
+    postRequest(playURL, formValues).then((data) => {
+      if (data.endOfGame) {
+        setCharactersFound((prev) => [...prev, data.characterName.name]);
+
+        setEndModal(true);
+      }
+
+      if (data.characterFound) {
+        setCharactersFound((prev) => [...prev, data.characterName.name]);
+        setIsVisible(false);
+      }
+    });
+  };
 
   return (
     <div className="popover-container">
@@ -53,25 +87,25 @@ const Popover = ({ children, position }) => {
           }}
         >
           <div className="">
-            <span className=" text-yellow-50">Character</span>
+            <span className="text-yellow-50">Character</span>
             <ul className="flex flex-col">
               <li>
-                <button>
+                <button onClick={() => handleAvatarClick('Batman')}>
                   <Avatar src="src/assets/batman.png" />
                 </button>
               </li>
               <li>
-                <button>
+                <button onClick={() => handleAvatarClick('Gladys')}>
                   <Avatar src="src/assets/gladys.png" />
                 </button>
               </li>
               <li>
-                <button>
+                <button onClick={() => handleAvatarClick('Grievious')}>
                   <Avatar src="src/assets/grievious.png" />
                 </button>
               </li>
               <li>
-                <button>
+                <button onClick={() => handleAvatarClick('Mr.Book')}>
                   <Avatar src="src/assets/mrbook.png" />
                 </button>
               </li>
@@ -84,3 +118,9 @@ const Popover = ({ children, position }) => {
 };
 
 export default Popover;
+
+Popover.propTypes = {
+  children: PropTypes.node.isRequired,
+  position: PropTypes.object.isRequired,
+  clickPosition: PropTypes.object.isRequired,
+};

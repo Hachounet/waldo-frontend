@@ -1,16 +1,15 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
 const GameContext = createContext();
 
 export const GameProvider = ({ children }) => {
   const [blurry, setBlurry] = useState(true); // Say if Blurry must activate blurry effect
-  const [startModal, setStartModal] = useState(false); // If true, display Start game Modal
+  const [startModal, setStartModal] = useState(true); // If true, display Start game Modal
   const [endModal, setEndModal] = useState(false); // If true, display End game Modal
-  const [choiceModal, setChoiceModal] = useState(true); // Sign up/Log in Modal
-  const [loginModal, setLoginModal] = useState(false); // If true, display Login modal
-  const [signUpModal, setSignUpModal] = useState(false);
+  const [choiceModal, setChoiceModal] = useState(false); // Pseudo choice in Modal
   const [leaderboardModal, setLeaderboardModal] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
   const [charactersFound, setCharactersFound] = useState([]); // Backend should respond to populate this array. Purpose is just for display. Backend handle real winning situation
 
   return (
@@ -24,14 +23,12 @@ export const GameProvider = ({ children }) => {
         setStartModal,
         endModal,
         setEndModal,
-        loginModal,
-        setLoginModal,
         choiceModal,
         setChoiceModal,
-        signUpModal,
-        setSignUpModal,
         leaderboardModal,
         setLeaderboardModal,
+        errorModal,
+        setErrorModal,
       }}
     >
       {' '}
@@ -44,6 +41,4 @@ GameProvider.propTypes = {
   children: PropTypes.node.isRequired, // Child are react elements
 };
 
-export const useGameContext = () => {
-  return useContext(GameContext);
-};
+export const useGameContext = () => useContext(GameContext);
