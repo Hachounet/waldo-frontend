@@ -3,7 +3,14 @@ import Avatar from './Avatar';
 import { useGameContext } from '../GameContext';
 import PropTypes from 'prop-types';
 import { postRequest } from '../hooks/fetchHelper';
-import { playURL, startURL } from '../DevHub';
+import {
+  character1,
+  character2,
+  character3,
+  character4,
+  playURL,
+  startURL,
+} from '../DevHub';
 
 const Popover = ({ children, position, clickPosition }) => {
   const [isVisible, setIsVisible] = useState(false); // Manages the visibility state of the popover
@@ -97,22 +104,22 @@ const Popover = ({ children, position, clickPosition }) => {
             <span className="text-yellow-50">Character</span>
             <ul className="flex flex-col">
               <li>
-                <button onClick={() => handleAvatarClick('Batman')}>
+                <button onClick={() => handleAvatarClick(character1)}>
                   <Avatar src="src/assets/batman.png" />
                 </button>
               </li>
               <li>
-                <button onClick={() => handleAvatarClick('Gladys')}>
+                <button onClick={() => handleAvatarClick(character2)}>
                   <Avatar src="src/assets/gladys.png" />
                 </button>
               </li>
               <li>
-                <button onClick={() => handleAvatarClick('Grievious')}>
+                <button onClick={() => handleAvatarClick(character3)}>
                   <Avatar src="src/assets/grievious.png" />
                 </button>
               </li>
               <li>
-                <button onClick={() => handleAvatarClick('Mr.Book')}>
+                <button onClick={() => handleAvatarClick(character4)}>
                   <Avatar src="src/assets/mrbook.png" />
                 </button>
               </li>
