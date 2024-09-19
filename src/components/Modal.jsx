@@ -16,6 +16,7 @@ export default function Modal({ textChoice }) {
     setLeaderboardModal,
     setErrorModal,
     setCharactersFound,
+    setMarkers,
   } = useGameContext();
 
   const [leaderboardRank, setLeaderboardRank] = useState([]);
@@ -53,6 +54,7 @@ export default function Modal({ textChoice }) {
       setLeaderboardModal(false);
       setStartModal(true);
       setCharactersFound([]);
+      setMarkers([]);
       setUserTime(0);
     } else if (choiceModal) {
       const sessionId = localStorage.getItem('sessionId');
