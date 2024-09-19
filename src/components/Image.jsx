@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const Image = ({ src, onClick }) => {
   return (
     <img
@@ -10,3 +12,8 @@ const Image = ({ src, onClick }) => {
 };
 
 export default Image;
+
+Image.propTypes = {
+  src: PropTypes.string,
+  onClick: PropTypes.func,
+};
