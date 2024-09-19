@@ -105,22 +105,22 @@ const Popover = ({ children, position, clickPosition }) => {
             <ul className="flex flex-col">
               <li>
                 <button onClick={() => handleAvatarClick(character1)}>
-                  <Avatar src="src/assets/batman.png" />
+                  <Avatar src="/batman.png" />
                 </button>
               </li>
               <li>
                 <button onClick={() => handleAvatarClick(character2)}>
-                  <Avatar src="src/assets/gladys.png" />
+                  <Avatar src="/gladys.png" />
                 </button>
               </li>
               <li>
                 <button onClick={() => handleAvatarClick(character3)}>
-                  <Avatar src="src/assets/grievious.png" />
+                  <Avatar src="/grievious.png" />
                 </button>
               </li>
               <li>
                 <button onClick={() => handleAvatarClick(character4)}>
-                  <Avatar src="src/assets/mrbook.png" />
+                  <Avatar src="/mrbook.png" />
                 </button>
               </li>
             </ul>
