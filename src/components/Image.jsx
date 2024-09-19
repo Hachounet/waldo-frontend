@@ -1,13 +1,25 @@
 import PropTypes from 'prop-types';
+import Marker from './Marker';
+import { useGameContext } from '../GameContext';
 
 const Image = ({ src, onClick }) => {
+  const { markers } = useGameContext();
+
   return (
-    <img
-      src={src}
-      alt="Game"
-      onClick={onClick}
-      className="cursor-pointer"
-    />
+    <div style={{ position: 'relative' }}>
+      <img
+        src={src}
+        alt="Waldo"
+        onClick={onClick}
+        style={{ width: '100%' }}
+      />
+      {markers.map((marker, index) => (
+        <Marker
+          key={index}
+          position={{ x: marker.x, y: marker.y }}
+        />
+      ))}
+    </div>
   );
 };
 

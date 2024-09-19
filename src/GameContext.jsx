@@ -11,7 +11,7 @@ export const GameProvider = ({ children }) => {
   const [leaderboardModal, setLeaderboardModal] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
   const [charactersFound, setCharactersFound] = useState([]); // Backend should respond to populate this array. Purpose is just for display. Backend handle real winning situation
-
+  const [markers, setMarkers] = useState([]);
   return (
     <GameContext.Provider
       value={{
@@ -29,6 +29,8 @@ export const GameProvider = ({ children }) => {
         setLeaderboardModal,
         errorModal,
         setErrorModal,
+        markers,
+        setMarkers,
       }}
     >
       {' '}

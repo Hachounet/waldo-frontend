@@ -9,7 +9,7 @@ const Popover = ({ children, position, clickPosition }) => {
   const [isVisible, setIsVisible] = useState(false); // Manages the visibility state of the popover
   const popoverRef = useRef(null); // Reference to the popover element
   const triggerRef = useRef(null); // Reference to the button element that triggers the popover
-  const { setCharactersFound, setEndModal } = useGameContext();
+  const { setCharactersFound, setEndModal, setMarkers } = useGameContext();
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
   };
@@ -50,12 +50,19 @@ const Popover = ({ children, position, clickPosition }) => {
     postRequest(playURL, formValues).then((data) => {
       if (data.endOfGame) {
         setCharactersFound((prev) => [...prev, data.characterName.name]);
-
+        setMarkers((prevState) => [
+          ...prevState,
+          { x: clickPosition.x, y: clickPosition.y },
+        ]);
         setEndModal(true);
       }
 
       if (data.characterFound) {
         setCharactersFound((prev) => [...prev, data.characterName.name]);
+        setMarkers((prevState) => [
+          ...prevState,
+          { x: clickPosition.x, y: clickPosition.y },
+        ]);
         setIsVisible(false);
       }
     });
